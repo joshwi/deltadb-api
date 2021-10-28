@@ -1,0 +1,392 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "deltaDB API",
+        "version": "1.0.0",
+        "description": "REST API built for deltaDB services",
+        "license": {
+            "name": "MIT",
+            "url": "https://mit-license.org/"
+        },
+        "contact": {
+            "name": "deltaDB",
+            "url": "https://deltadb.com",
+            "email": "contact@deltadb.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/api/v2"
+        },
+        {
+          "url": "{protocol}://localhost:{port}/{basePath}",
+          "description": "server",
+          "variables": {
+            "protocol": {
+              "enum": [
+                "http",
+                "https"
+              ],
+              "default": "http"
+            },
+            "port": {
+              "enum": [
+                "5000"
+              ],
+              "default": "5000"
+            },
+            "basePath": {
+              "default": "api/v2"
+            }
+          }
+        }
+      ],
+    "tags": [
+        {
+            "name": "Admin",
+            "description": "Admin API Endpoints for DB, Cache, and Transactions"
+        }
+    ],
+    "paths": {
+        "/admin/correlationID/{correlationID}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Check Correlation ID Status",
+                "description": "Check cached status of the correlation ID for an API request",
+                "parameters": [
+                    {
+                        "name": "correlationID",
+                        "in": "path",
+                        "description": "Unique ID assigned for every API request",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "395c8be6-3611-49d6-b413-42c77f6a2eaa"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/admin/db/connection/status": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Returns connection status to Neo4j DB Instance",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/admin/db/cypher": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Run cypher query to Neo4j DB instance",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/cypherBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/cypher200"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/cypher400"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },        
+        "/admin/db/transactions/{folder}/{file}": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Run transactions to Neo4j DB instance",
+                "parameters": [
+                    {
+                        "name": "folder",
+                        "in": "path",
+                        "description": "Transaction folder to run",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "import"
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "in": "path",
+                        "description": "Transaction file to run",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "games.json"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transactions200"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transactions400"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/db/node/{node}/{label}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get instances of a node in Neo4j DB",
+                "parameters": [
+                    {
+                        "name": "node",
+                        "in": "path",
+                        "description": "Neo4j node type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "games"
+                        }
+                    },
+                    {
+                        "name": "label",
+                        "in": "path",
+                        "description": "Label of Neo4j node instance",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "2019_SuperBowl_kan_sfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create new instance of a node in Neo4j DB",
+                "parameters": [
+                    {
+                        "name": "node",
+                        "in": "path",
+                        "description": "Neo4j node type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "games"
+                        }
+                    },
+                    {
+                        "name": "label",
+                        "in": "path",
+                        "description": "Label of Neo4j node instance",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "2019_SuperBowl_kan_sfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update instance of a node in Neo4j DB",
+                "parameters": [
+                    {
+                        "name": "node",
+                        "in": "path",
+                        "description": "Neo4j node type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "games"
+                        }
+                    },
+                    {
+                        "name": "label",
+                        "in": "path",
+                        "description": "Label of Neo4j node instance",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "2019_SuperBowl_kan_sfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete instances of a node in Neo4j DB",
+                "parameters": [
+                    {
+                        "name": "node",
+                        "in": "path",
+                        "description": "Neo4j node type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "games"
+                        }
+                    },
+                    {
+                        "name": "label",
+                        "in": "path",
+                        "description": "Label of Neo4j node instance",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "2019_SuperBowl_kan_sfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "cypherBody": {
+                "type": "object",
+                "properties": {
+                    "cypher": {
+                        "type": "string"
+                    }
+                }
+            },
+            "cypher200": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "query": {
+                        "type": "string"
+                    }
+                }
+            },
+            "cypher400": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "query": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "string"
+                    }
+                }
+            },
+            "transactions200": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    }
+                }
+            },
+            "transactions400": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

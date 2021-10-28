@@ -1,0 +1,7 @@
+[
+    "LOAD CSV WITH HEADERS FROM 'file:///pfr_map_season_years.csv' as row MERGE (n:pfr_map_season_years {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///pfr_map_team_teams.csv' as row MERGE (n:pfr_map_team_teams {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///pfr_team_season_games.csv' as row MERGE (n:pfr_team_season_games {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///pfr_season_draft_picks.csv' as row MERGE (n:pfr_season_draft_picks {label: row.label}) SET n += row"
+
+]

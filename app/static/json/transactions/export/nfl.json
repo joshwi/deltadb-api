@@ -1,0 +1,5 @@
+[
+    "MATCH (n:games) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'games.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data",
+    "MATCH (n:picks) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'picks.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data",
+    "MATCH (n:colors) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'colors.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data"
+]

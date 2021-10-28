@@ -1,0 +1,8 @@
+[
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_film_year_movie.csv' as row CREATE (n:wiki_film_year_movie {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_movie_cast.csv' as row CREATE (n:wiki_movie_cast {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_movie_producer.csv' as row CREATE (n:wiki_movie_producer {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_movie_director.csv' as row CREATE (n:wiki_movie_director {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_movie_score.csv' as row CREATE (n:wiki_movie_score {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///wiki_movie_screenplay.csv' as row CREATE (n:wiki_movie_screenplay {label: row.label}) SET n += row"
+]
