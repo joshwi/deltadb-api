@@ -18,14 +18,33 @@ router.route("/connection").get(async function (req, res) {
     return res.send(output)
 })
 
+router.route("/keys/generate/:key").get(async function (req, res) {
+
+    let output = {label: req.params.key, primary: [], headers: [], keys: []}
+
+    if (req.params.key) {
+        query = `MATCH (m:${req.params.key})\nUNWIND keys(m) AS key\nRETURN collect(distinct key) as n`
+        let properties = await utils.neo4j.runCypher(driver, query, res.locals.correlation)
+        try { properties = properties.records[0].n } catch (err) { properties = [] }
+        properties.filter(x => x != "_labels" && x != "_id")
+        await properties.map(entry => {
+            header = entry.replace(/\_/g, " ")
+            output.headers.push(header)
+            output.keys.push(entry)
+        })
+    }
+    res.status(200).send(output)
+})
+
+
 router.route("/nulltostring").get(async function (req, res) {
     let query = `MATCH (m)\nUNWIND labels(m) AS label\nRETURN collect(distinct label) as n`
     let nodes = await utils.neo4j.runCypher(driver, query, res.locals.correlation)
-    try{ nodes = nodes.records[0].n }catch(err){ nodes = []}
+    try { nodes = nodes.records[0].n } catch (err) { nodes = [] }
     await nodes.map(async entry => {
         query = `MATCH (m:${entry})\nUNWIND keys(m) AS key\nRETURN collect(distinct key) as n`
         let properties = await utils.neo4j.runCypher(driver, query, res.locals.correlation)
-        try{ properties = properties.records[0].n }catch(err){ properties = []}
+        try { properties = properties.records[0].n } catch (err) { properties = [] }
         properties.map(async index => {
             query = `MATCH (n:${entry}) WHERE n.${index} is Null SET n.${index}=""`
             await utils.neo4j.runCypher(driver, query, res.locals.correlation)

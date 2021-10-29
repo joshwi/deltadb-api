@@ -39,6 +39,10 @@ app.use(function (req, res, next) {
     }
 })
 
+app.route("/").get(function (req,res) {
+    res.json({message: "Welcome to the deltaDB API!"})
+})
+
 app.use("/api", routes)
 
 app.listen(port, async () => {
