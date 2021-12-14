@@ -11,7 +11,7 @@ const client = redis.createClient({
 })
 
 client.on("error", function (err) {
-    console.log({message: "Redis Client Error", error: err});
+    // console.log({message: "Redis Client Error", error: err});
 });
 
 const getCache = promisify(client.get).bind(client)
