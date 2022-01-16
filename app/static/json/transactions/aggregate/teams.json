@@ -1,0 +1,3 @@
+[
+    "MATCH (n:pfr_map_team_teams), (m:nfl_colors) WHERE n.tag=m.tag MERGE(:nfl_teams{ label:n.tag, tag: n.tag, team: n.team, year_min: n.year_min, year_max: n.year_max, primary_color: m.primary_color, secondary_color: m.secondary_color, tertiary_color: m.tertiary_color, win_perc: n.win_perc, playoff_perc: n.playoff_perc, win: n.win, loss: n.loss, tie: n.tie, playoff_win: n.playoff_win, playoff_loss: n.playoff_loss, playoff_yrs: n.playoff_yrs, div_champs: n.div_champs, conf_champs: n.conf_champs, champs: n.champs, sb_champs: n.sb_champs})"
+]
