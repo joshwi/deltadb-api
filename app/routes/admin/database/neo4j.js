@@ -81,6 +81,15 @@ router.route("/cypher").post(async function (req, res) {
     }
 })
 
+router.route("/cypher/quick").post(async function (req, res) {
+    if (req.body && req.body.cypher) {
+        let response = await utils.neo4j.runCypher(driver, req.body.cypher, res.locals.correlation)
+        res.status(200).send({ message: "Neo4j Cypher Query", correlationID: res.locals.correlation, status: "Completed", query: req.body.cypher, ...response })
+    } else {
+        res.status(400).send({ message: "Neo4j Cypher Command Failed", correlationID: res.locals.correlation, error: "Invalid body in POST request" })
+    }
+})
+
 router.route("/transactions/:folder/:file?").post(async function (req, res) {
 
     let cypher, status
