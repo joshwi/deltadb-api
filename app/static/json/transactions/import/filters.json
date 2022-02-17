@@ -1,5 +1,0 @@
-[
-    "MERGE (n:filters{label: 'nfl_games_year', node: 'nfl_games', header: 'year', name: 'year', active: true, value: '20.*'})",
-    "MERGE (n:filters{label: 'nfl_games_week', node: 'nfl_games', header: 'week', name: 'week', active: true, value: '[^\\d]+'})",
-    "MERGE (n:filters{label: 'nfl_games_home_team', node: 'nfl_games', header: 'home team', name: 'home_team', active: true, value: '.*Chiefs'})"
-]

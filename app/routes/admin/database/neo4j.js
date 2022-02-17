@@ -20,7 +20,7 @@ router.route("/connection").get(async function (req, res) {
 
 router.route("/keys/generate/:key").get(async function (req, res) {
 
-    let output = {label: req.params.key, primary: [], headers: [], keys: []}
+    let output = { label: req.params.key, primary: [], headers: [], keys: [] }
 
     if (req.params.key) {
         query = `MATCH (m:${req.params.key})\nUNWIND keys(m) AS key\nRETURN collect(distinct key) as n`
@@ -90,31 +90,31 @@ router.route("/cypher/quick").post(async function (req, res) {
     }
 })
 
-router.route("/transactions/:folder/:file?").post(async function (req, res) {
+router.route("/transactions/:folder/:category/:file").post(async function (req, res) {
 
     let cypher, status
-    let filepath = `json/transactions/${req.params.folder}`
+    let filepath = `json/transactions/${req.params.folder}/${req.params.category}`
 
-    if (!req.params.file) {
-        files = locals.storage.scan(filepath)
-        if (files.length > 0) {
-            cypher = files.filter(x => x.includes(".json")).map(entry => { return { file: entry, commands: locals.storage.read(`${filepath}/${entry}`) } })
-            status = files.filter(x => x.includes(".json")).map(entry => { return { message: "Neo4j Transaction Status", file: entry, correlationID: res.locals.correlation, status: "In Progress" } })
-            res.status(200).json({ message: "Neo4j Transaction Running", correlationID: res.locals.correlation })
-        } else {
-            res.status(400).json({ message: "Neo4j Transaction Failed", correlationID: res.locals.correlation, error: `No such directory > ${filepath}` })
-        }
+    // if (!req.params.file) {
+    //     files = locals.storage.scan(filepath)
+    //     if (files.length > 0) {
+    //         cypher = files.filter(x => x.includes(".json")).map(entry => { return { file: entry, commands: locals.storage.read(`${filepath}/${entry}`) } })
+    //         status = files.filter(x => x.includes(".json")).map(entry => { return { message: "Neo4j Transaction Status", file: entry, correlationID: res.locals.correlation, status: "In Progress" } })
+    //         res.status(200).json({ message: "Neo4j Transaction Running", correlationID: res.locals.correlation })
+    //     } else {
+    //         res.status(400).json({ message: "Neo4j Transaction Failed", correlationID: res.locals.correlation, error: `No such directory > ${filepath}` })
+    //     }
 
+    // } else {
+    let commands = locals.storage.read(`${filepath}/${req.params.file}.json`)
+    if (commands.length > 0) {
+        cypher = [{ file: `${req.params.file}.json`, commands: commands }]
+        status = [{ message: "Neo4j Transaction Status", file: `${req.params.file}.json`, correlationID: res.locals.correlation, status: "In Progress" }]
+        res.status(200).json({ message: "Neo4j Transaction Running", correlationID: res.locals.correlation })
     } else {
-        let commands = locals.storage.read(`${filepath}/${req.params.file}.json`)
-        if (commands.length > 0) {
-            cypher = [{ file: req.params.file, commands: commands }]
-            status = [{ message: "Neo4j Transaction Status", file: `${req.params.file}.json`, correlationID: res.locals.correlation, status: "In Progress" }]
-            res.status(200).json({ message: "Neo4j Transaction Running", correlationID: res.locals.correlation })
-        } else {
-            res.status(400).json({ message: "Neo4j Transaction Failed", correlationID: res.locals.correlation, error: `No such file > ${filepath}/${req.params.file}.json` })
-        }
+        res.status(400).json({ message: "Neo4j Transaction Failed", correlationID: res.locals.correlation, error: `No such file > ${filepath}/${req.params.file}.json` })
     }
+    // }
 
     await locals.redis.setCache(res.locals.correlation, JSON.stringify(status))
 

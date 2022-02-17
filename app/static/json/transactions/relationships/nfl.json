@@ -1,3 +1,0 @@
-[
-    "MATCH (a:nfl_teams), (b:nfl_games) WHERE a.label=b.home_tag OR a.label=b.away_tag CREATE (a)-[r:played_in]->(b) RETURN r"
-]

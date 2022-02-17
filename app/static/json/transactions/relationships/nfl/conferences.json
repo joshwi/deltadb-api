@@ -1,0 +1,12 @@
+[
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'kan|sdg|den|rai' AND b.label='AFC_West_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'buf|mia|nwe|nyj' AND b.label='AFC_East_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'cin|cle|pit|rav' AND b.label='AFC_North_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'clt|htx|jax|oti' AND b.label='AFC_South_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'crd|ram|sea|sfo' AND b.label='NFC_West_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'dal|nyg|phi|was' AND b.label='NFC_East_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'chi|det|gnb|min' AND b.label='NFC_North_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_teams), (b:nfl_divisions) WHERE a.tag=~'atl|car|nor|tam' AND b.label='NFC_South_2002_present' MERGE (a)-[r:in_div]->(b)",
+    "MATCH (a:nfl_divisions), (b:nfl_conferences) WHERE a.conference='AFC' AND b.conference=a.conference MERGE (a)-[r:in_conf]->(b)",
+    "MATCH (a:nfl_divisions), (b:nfl_conferences) WHERE a.conference='NFC' AND b.conference=a.conference MERGE (a)-[r:in_conf]->(b)"
+]

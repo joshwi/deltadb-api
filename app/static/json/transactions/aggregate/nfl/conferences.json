@@ -1,0 +1,10 @@
+[
+    "MATCH (a:nfl_teams) WHERE a.tag=~'kan|sdg|den|rai' SET a.conference='AFC', a.division='West' ",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'buf|mia|nwe|nyj' SET a.conference='AFC', a.division='East'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'cin|cle|pit|rav' SET a.conference='AFC', a.division='North'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'clt|htx|jax|oti' SET a.conference='AFC', a.division='South'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'crd|ram|sea|sfo' SET a.conference='NFC', a.division='West'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'dal|nyg|phi|was' SET a.conference='NFC', a.division='East'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'chi|det|gnb|min' SET a.conference='NFC', a.division='North'",
+    "MATCH (a:nfl_teams) WHERE a.tag=~'atl|car|nor|tam' SET a.conference='NFC', a.division='South'"
+]

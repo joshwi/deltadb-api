@@ -1,0 +1,5 @@
+[
+    "LOAD CSV WITH HEADERS FROM 'file:///deltadb-backup/nfl/colors.csv' as row MERGE (n:nfl_colors {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///deltadb-backup/nfl/teams.csv' as row MERGE (n:nfl_teams {label: row.label}) SET n += row",
+    "LOAD CSV WITH HEADERS FROM 'file:///deltadb-backup/nfl/games.csv' as row MERGE (n:nfl_games {label: row.label}) SET n += row"
+]

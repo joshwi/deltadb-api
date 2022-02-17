@@ -1,0 +1,5 @@
+[
+    "MATCH (n:nfl_colors) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'deltadb-backup/nfl/colors.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data",
+    "MATCH (n:nfl_teams) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'deltadb-backup/nfl/teams.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data",
+    "MATCH (n:nfl_games) WITH collect(n) AS response CALL apoc.export.csv.data(response, [], 'deltadb-backup/nfl/games.csv', {}) YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data"
+]
