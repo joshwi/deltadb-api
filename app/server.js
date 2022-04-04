@@ -8,6 +8,8 @@ const cors = require("cors");
 const swagger = require("./swagger/swagger")
 const routes = require("./routes/routes")
 const {logger} = require("./utility/middleware/middleware")
+const utils = require("@jshwilliams/node-utils")
+const chalk = require("chalk")
 
 const port = process.env.PORT || 5000
 
@@ -27,5 +29,5 @@ app.route("/").get(function (req,res) {
 app.use("/api", routes)
 
 app.listen(port, async () => {
-    console.log(`NFL DB API running on port: ${port}`)
+    utils.log.info(`${chalk.cyan("port")}=${port} ${chalk.cyan("message")}=NFL DB API Started`)
 })
