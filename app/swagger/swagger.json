@@ -16,35 +16,17 @@
     },
     "servers": [
         {
-            "url": "http://localhost:5000/api/v2"
-        },
-        {
-          "url": "{protocol}://localhost:{port}/{basePath}",
-          "description": "server",
-          "variables": {
-            "protocol": {
-              "enum": [
-                "http",
-                "https"
-              ],
-              "default": "http"
-            },
-            "port": {
-              "enum": [
-                "5000"
-              ],
-              "default": "5000"
-            },
-            "basePath": {
-              "default": "api/v2"
-            }
-          }
+            "url": "http://www.joshwi.com:5000/api/v2"
         }
       ],
     "tags": [
         {
             "name": "Admin",
             "description": "Admin API Endpoints for DB, Cache, and Transactions"
+        },
+        {
+            "name": "Node",
+            "description": "Create, read, update, delete nodes in graph DB"
         }
     ],
     "paths": {
@@ -74,12 +56,12 @@
                 }
             }
         },
-        "/admin/db/connection/status": {
+        "/admin/db/status": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Returns connection status to Neo4j DB Instance",
+                "summary": "Returns connection status of graph DB",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -92,7 +74,7 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Run cypher query to Neo4j DB instance",
+                "summary": "Run cypher query to graph DB",
                 "requestBody": {
                     "description": "",
                     "required": true,
@@ -183,7 +165,7 @@
         "/admin/db/node/{node}/{label}": {
             "get": {
                 "tags": [
-                    "Admin"
+                    "Node"
                 ],
                 "summary": "Get instances of a node in Neo4j DB",
                 "parameters": [
@@ -216,7 +198,7 @@
             },
             "post": {
                 "tags": [
-                    "Admin"
+                    "Node"
                 ],
                 "summary": "Create new instance of a node in Neo4j DB",
                 "parameters": [
@@ -249,7 +231,7 @@
             },
             "put": {
                 "tags": [
-                    "Admin"
+                    "Node"
                 ],
                 "summary": "Update instance of a node in Neo4j DB",
                 "parameters": [
@@ -282,9 +264,9 @@
             },
             "delete": {
                 "tags": [
-                    "Admin"
+                    "Node"
                 ],
-                "summary": "Delete instances of a node in Neo4j DB",
+                "summary": "Delete instance of a node in Neo4j DB",
                 "parameters": [
                     {
                         "name": "node",

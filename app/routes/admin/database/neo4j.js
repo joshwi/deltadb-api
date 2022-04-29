@@ -13,7 +13,7 @@ const driver = neo4j.driver(uri, neo4j.auth.basic(username, password), { disable
 const locals = require("../../../utility/utility")
 const utils = require("@jshwilliams/node-utils")
 
-router.route("/connection").get(async function (req, res) {
+router.route("/status").get(async function (req, res) {
     let output = await utils.neo4j.connectionStatus(driver)
     return res.send(output)
 })
