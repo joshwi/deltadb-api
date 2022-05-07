@@ -6,7 +6,7 @@ const db = require('./database/neo4j')
 
 router.use("/db", db)
 
-router.route("/correlationID/:id").get(async function (req, res) {
+router.route("/cache/:id").get(async function (req, res) {
     let cache = await utility.redis.getCache(req.params.id)
 
     try { cache = cache ? JSON.parse(cache) : [{}] }

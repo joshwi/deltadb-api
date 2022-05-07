@@ -1,0 +1,111 @@
+{
+    "generic_ok": {
+        "description": "OK"
+    },
+    "cypher_body": {
+        "description": "",
+        "required": true,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "cypher": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "cypher_ok": {
+        "description": "OK",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "correlationID": {
+                            "type": "string"
+                        },
+                        "status": {
+                            "type": "string"
+                        },
+                        "query": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "cypher_bad": {
+        "description": "Bad Request",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "correlationID": {
+                            "type": "string"
+                        },
+                        "status": {
+                            "type": "string"
+                        },
+                        "query": {
+                            "type": "string"
+                        },
+                        "error": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "transactions_ok": {
+        "description": "OK",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "correlationID": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "transactions_bad": {
+        "description": "Bad Request",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "correlationID": {
+                            "type": "string"
+                        },
+                        "error": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+            }
+        }
+}

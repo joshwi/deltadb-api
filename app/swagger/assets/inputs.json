@@ -1,0 +1,73 @@
+{
+    "correlationID": {
+        "name": "correlationID",
+        "in": "path",
+        "description": "Unique ID assigned for every API request",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "395c8be6-3611-49d6-b413-42c77f6a2eaa"
+        }
+    },
+    "node_required":{
+        "name": "node",
+        "in": "path",
+        "description": "Neo4j node type",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "nfl_games"
+        }
+    },
+    "label_required": {
+        "name": "label",
+        "in": "path",
+        "description": "Label of Neo4j node instance",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "2019_SuperBowl_kan_sfo"
+        }
+    },
+    "label": {
+        "name": "label",
+        "in": "path",
+        "description": "Label of Neo4j node instance",
+        "required": false,
+        "allowEmptyValue": true,
+        "schema": {
+            "type": "string",
+            "example": "2019_SuperBowl_kan_sfo"
+        }
+    },
+    "folder": {
+        "name": "folder",
+        "in": "path",
+        "description": "Transaction folder",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "import"
+        }
+    },
+    "category":{
+        "name": "category",
+        "in": "path",
+        "description": "Transaction subfolder",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "nfl"
+        }
+    },
+    "file":{
+        "name": "file",
+        "in": "path",
+        "description": "Transaction file to run",
+        "required": true,
+        "schema": {
+            "type": "string",
+            "example": "keys"
+        }
+    }
+}

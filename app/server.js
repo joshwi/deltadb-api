@@ -4,7 +4,6 @@ const fs = require("fs");
 const app = express();
 
 const correlator = require('express-correlation-id')
-// const log = require("loglevel")
 const cors = require("cors");
 
 const swagger = require("./swagger/swagger")
@@ -16,7 +15,7 @@ require("dotenv").config()
 
 const DELTADB_HOST = process.env.DELTADB_HOST
 
-const port = process.env.PORT || 5000
+const port = process.env.DELTADB_SERVICE_PORT || 5000
 
 swagger(app)
 

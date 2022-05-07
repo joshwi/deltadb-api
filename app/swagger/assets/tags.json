@@ -1,0 +1,15 @@
+{
+    "node":{
+        "name": "Node",
+        "description": "Read and update nodes in the graph DB"
+    },
+    "cache":{
+        "name": "Cache",
+        "description": "Read values from cache"
+    },
+    "admin":{
+        "name": "Admin",
+        "description": "Admin endpoints for interacting with DB"
+    }
+
+}

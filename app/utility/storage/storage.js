@@ -13,20 +13,15 @@ function scan(directory) {
 
 function read(filepath) {
 
-    let file = path.join(__dirname, `/../../static/${filepath}`)
-    let output = ""
-
-    // console.log(`No such file or directory: ${file}`)
-
-    if(fs.existsSync(file)){
-        if(file.indexOf(".json") > -1){
-            output = fs.readFileSync(file, (err, data) => {
+    if(fs.existsSync(filepath)){
+        if(filepath.indexOf(".json") > -1){
+            output = fs.readFileSync(filepath, (err, data) => {
                 if (err) return null;
                 return data
             })
             try{ output = JSON.parse(output) } catch(error) { return null} 
-        }else if(file.indexOf(".csv") > -1){
-            output = fs.readFileSync(file, "utf-8", (err, data) => {
+        }else if(filepath.indexOf(".csv") > -1){
+            output = fs.readFileSync(filepath, "utf-8", (err, data) => {
                 if (err) return null;
                 return data
             })
@@ -36,33 +31,19 @@ function read(filepath) {
     return output
 }
 
-function write(filepath, filename, data) {
+function write(filename, data) {
 
-    let file = path.join(__dirname, `/../../static`)
+    filepath = path.parse(filename).base
 
-    if (!fs.existsSync(file)) {
-        fs.mkdirSync(file);
+    if (!fs.existsSync(filepath)) {
+        fs.mkdirSync(filepath);
     }
 
-    let folders = filepath.split(`/`)
-    folders.map(subfolder => {
-        if (!fs.existsSync(`${file}/${subfolder}`)) {
-            fs.mkdirSync(`${file}/${subfolder}`);
-        }
-        file += `/${subfolder}`
-    })
-
-    file += `${filename}`
-
-    let output = { message: `Data has been writen to file: ${file}` }
+    let output = { message: `Data has been writen to file: ${filename}` }
     try {
-        if(filename.indexOf(".json") > -1){
-            fs.writeFileSync(file, JSON.stringify(data))
-        }else if(filename.indexOf(".csv") > -1){
-            fs.writeFileSync(file, data)
-        }
+        fs.writeFileSync(filename, data)
     } catch (err) {
-        output = { message: `Error writing to file: ${file}`, error: err }
+        output = { message: `Error writing to file: ${filename}`, error: err }
     }
 
     return output
