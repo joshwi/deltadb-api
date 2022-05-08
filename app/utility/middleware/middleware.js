@@ -2,13 +2,15 @@ const correlator = require('express-correlation-id')
 const requestIP = require("request-ip");
 const chalk = require("chalk")
 const utils = require("@jshwilliams/node-utils")
+const redis = require("../cache/redis")
 
 const AUTHORIZED = ["http://localhost:3000"]
 
-const logger = function (req, res, next) {
+const logger = async function (req, res, next) {
     let ip = requestIP.getClientIp(req)
     let correlationID = correlator.getId()
     res.locals.correlation = correlationID
+    res.locals.req_url = req.url
     res.header("CorrelationID", correlationID)
     
     utils.log.info(`${correlationID} ${chalk.cyan("ip")}=${ip} ${chalk.cyan("method")}=${req.method} ${chalk.cyan("api")}=${decodeURIComponent(req.url)}`)
@@ -21,7 +23,15 @@ const logger = function (req, res, next) {
             res.send(200)
         }
     }
-    next()
+
+    let data = await redis.getCache(res.locals.req_url)
+
+    if(data){
+        return res.status(200).json(JSON.parse(data))
+    }else{
+        next()
+    }
+    
 }
 
 module.exports = {logger}
